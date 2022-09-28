@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { ThemeProvider } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const TodoList = () => {
   // State Hook - `useState`
@@ -10,7 +14,7 @@ const TodoList = () => {
   /* Agrego una nueva tarea*/
   function agregarTarea() {
     if (!nuevaTarea) {
-      alert("Press enter an Tarea.");
+      alert("Ingrese una tarea");
       return;
     }
 
@@ -37,31 +41,48 @@ const TodoList = () => {
       <h1>Lista de tareas</h1>
 
       {/* 2. Agregar tarea */}
-      <input
-        type="text"
-        placeholder="Ingrese una tarea"
-        value={nuevaTarea}
-        onChange={(e) => setnuevaTarea(e.target.value)}
-      />
+    <ThemeProvider
+  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+  minBreakpoint="xxs">
+      <Form>
+      <Form.Group className="mb-3 m-4" controlId="formBasicEmail">
+        <Form.Label>Tarea:</Form.Label>
+        <Form.Control value={nuevaTarea} onChange={(e) => setnuevaTarea(e.target.value)}  type="text" placeholder="Ingrese Tarea" />
+      </Form.Group>
 
       {/* boton para agregar */}
-      <button className="agregar" onClick={() => agregarTarea()}>Agregar</button>
+      <Button className="agregar" onClick={(e) => { e.preventDefault(); agregarTarea(); }} variant="primary" type="submit">
+        ADD
+      </Button>
+    </Form>
+</ThemeProvider>
+<hr></hr>
+
+      {/* <button className="agregar" onClick={() => agregarTarea()}>Agregar</button> */}
 
       {/* 3. Lista de tareas  */}
       <ul>
         {Tareas.map((Tarea) => {
           return (
-            <div>
-              <li key={Tarea.id} >
-                {Tarea.value}
-                <button 
-                  className="borrar"
-                  onClick={() => deleteTarea(Tarea.id)}
-                >
-                  Borrar
-                </button>
-              </li>
-            </div>
+            // <div>
+            //   <li key={Tarea.id} >
+            //     {Tarea.value}
+            //     <button 
+            //       className="borrar"
+            //       onClick={() => deleteTarea(Tarea.id)}
+            //     >
+            //       Borrar
+            //     </button>
+            //   </li>
+            // </div>
+
+        <ListGroup>
+        <ListGroup.Item key={Tarea.id} >
+            { Tarea.value }
+            <Button variant="danger" onClick={() => deleteTarea(Tarea.id)} >X</Button>{' '}
+            </ListGroup.Item>
+        </ListGroup>
+
           );
         })}
       </ul>
