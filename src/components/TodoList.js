@@ -77,7 +77,7 @@ const TodoList = () => {
             // </div>
 
         <ListGroup>
-        <ListGroup.Item key={Tarea.id} >
+        <ListGroup.Item key={Tarea.id} className="mb-3">
             { Tarea.value }
             <Button variant="danger" onClick={() => deleteTarea(Tarea.id)} >X</Button>{' '}
             </ListGroup.Item>
